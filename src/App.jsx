@@ -1,7 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Nav1 from './components/Nav1';
 import Nav2 from './components/Nav2';
 import Footer from './components/Footer';
+import Loader from './components/Loader'; // Import your loader
 
 // Home page sections
 import Hero from './components/Hero';
@@ -25,9 +27,27 @@ import BlogSec2 from './components/BlogSec2';
 import ContactSec1 from './components/ContactSec1';
 import AboutTheDeveloper from './components/AboutTheDeveloper';
 
-function App() {
+function RouteLoaderWrapper() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    // Simulate loading duration
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700); // adjust duration as needed
+
+    return () => clearTimeout(timer);
+  }, [location]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <Router>
+    <>
       <Nav1 />
       <Nav2 />
 
@@ -42,6 +62,14 @@ function App() {
       </Routes>
 
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <RouteLoaderWrapper />
     </Router>
   );
 }

@@ -11,7 +11,7 @@ const Nav1 = () => {
 
             <div className="flex flex-col items-center text-center w-full md:w-auto">
                 <img
-                    src="logo.png"
+                    src="/logo.png"
                     alt="Logo"
                     className="w-38 h-38  md:w-[140px] md:h-[160px] object-contain"
                 />
